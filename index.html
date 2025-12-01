@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AR-RAZZAQ Global Investment Limited - From Farms to Factories. Building Prosperity, Empowering Communities through agricultural and industrial solutions.">
+    <meta name="keywords" content="agribusiness, agricultural export, farm to factory, Nigeria agribusiness, sustainable farming, agro processing, AR-RAZAQ Global Investment">
+    <meta property="og:title" content="AR-RAZAQ Global Investment Limited">
+    <meta property="og:description" content="From Farms to Factories - Building Prosperity, Empowering Communities">
+    <meta property="og:type" content="website">
+    <title>AR-RAZZAQ Global Investment Limited - Agribusiness Solutions</title>
+    <link rel="shortcut icon" href="assets/arrazzaqlogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link href='https://cdn.boxicons.com/3.0.4/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+    <!-- <link href='https://cdn.boxicons.com/3.0.4/fonts/basic/boxicons.min.css' rel='stylesheet'> -->
+     <link href='https://cdn.boxicons.com/3.0.4/fonts/animations.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" style="display: flex;align-items: center;column-gap: 10px;"><img src="assets/arrazzaqlogo.png" alt="" height="40"> AR-RAZAQ GLOBAL</a>
+            <nav id="navbar">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#impact">Impact</a>
+                <a href="#awards">Awards</a>
+                <a href="#investors">Investors</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="header-buttons">
+                <!-- <button class="btn btn-gold" onclick="openInvestorModal()">Download Pitch Deck</button> -->
+                <div class="social-icons">
+                    <a href="#" title="Facebook"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" title="Instagram"><i class="ri-instagram-fill"></i></a>
+                    <a href="#" title="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home" style="background: linear-gradient(45deg, black, green, black);background-image: url(assets/agriculture3.jpg);background-size: cover; background-repeat: no-repeat;">
+        <div class="hero-content">
+            <h1>From Farms to Factories</h1>
+            <p class="subheading">Building Prosperity, Empowering Communities</p>
+            <p class="hero-description">
+                AR-RAZAQ Global Investment Limited is a pioneering agribusiness and industrial solutions company dedicated to transforming agricultural value chains across Africa. We bridge the gap between farmers and factories, creating sustainable prosperity for all stakeholders.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Explore Services</button>
+                <button class="btn btn-gold" onclick="openInvestorModal()">Download Pitch Deck</button>
+            </div>
+            <div class="counters">
+                <div class="counter-box">
+                    <div class="counter-number" data-target="15">0</div>
+                    <div class="counter-label">15+ Years of Excellence</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" data-target="200">0</div>
+                    <div class="counter-label">200+ Partner Farms</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" data-target="5">0</div>
+                    <div class="counter-label">5 Countries Served</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" data-target="50">0</div>
+                    <div class="counter-label">50+ Active Projects</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTO POPUP MODAL -->
+    <div class="modal-overlay" id="popupModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closePopupModal()">&times;</button>
+            <div id="popupForm">
+                <h2>Join Our Network</h2>
+                <form id="popupFormElement" onsubmit="handlePopupSubmit(event)">
+                    <div class="form-group">
+                        <label for="popupName">Full Name</label>
+                        <input type="text" id="popupName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupPhone">Phone Number</label>
+                        <input type="tel" id="popupPhone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupAddress">Address</label>
+                        <input type="text" id="popupAddress" name="address" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+                </form>
+            </div>
+            <div class="modal-success" id="popupSuccess">
+                <div class="modal-success-icon">✓</div>
+                <h3>Thank You!</h3>
+                <p>We've received your information and will be in touch soon.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHO WE ARE SECTION -->
+    <section class="who-we-are" id="about">
+        <h2>Who We Are</h2>
+        <div class="who-we-are-content">
+            <p class="who-we-are-text">
+                AR-RAZZAQ Global Investment Limited stands as a beacon of innovation in the agribusiness sector. With over 15 years of experience, we have successfully established ourselves as a trusted partner for agricultural transformation, industrial processing, and sustainable development across multiple African nations.
+            </p>
+            <p class="who-we-are-text">
+                Our integrated approach combines traditional agricultural expertise with modern industrial technology, creating value at every step of the supply chain. We are committed to empowering farming communities while delivering exceptional returns to our investors and partners.
+            </p>
+            <p class="who-we-are-text">
+                Through strategic partnerships, innovative solutions, and unwavering commitment to sustainability, we are reshaping the agribusiness landscape and building a prosperous future for generations to come.
+            </p>
+        </div>
+
+        <div class="mission-vision-cards">
+            <div class="card">
+                <div class="card-icon"><i class="ri-eye-line"></i></div>
+                <h3>Our Vision</h3>
+                <p>To be the leading integrated agribusiness and industrial solutions provider in Africa, transforming agricultural value chains and creating sustainable prosperity for farmers, investors, and communities.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="ri-target-line"></i></div>
+                <h3>Our Mission</h3>
+                <p>To bridge the gap between farms and factories through innovative solutions, creating sustainable value, empowering rural communities, and delivering exceptional returns to all stakeholders.</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; color: var(--primary-green); margin-top: 3rem; margin-bottom: 2rem; font-size: 1.8rem;">Core Values</h3>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-card-icon"><i class="ri-shield-check-line"></i></div>
+                <h4>Integrity</h4>
+                <p>Conducting business with honesty, transparency, and ethical principles in all dealings.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-card-icon"><i class="ri-lightbulb-flash-line"></i></div>
+                <h4>Innovation</h4>
+                <p>Continuously seeking new approaches and technologies to improve efficiency and value creation.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-card-icon"><i class="ri-leaf-line"></i></div>
+                <h4>Sustainability</h4>
+                <p>Balancing economic growth with environmental stewardship and social responsibility.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-card-icon"><i class="ri-team-line"></i></div>
+                <h4>Collaboration</h4>
+                <p>Working together with partners, communities, and stakeholders to achieve shared success.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-card-icon"><i class="ri-star-line"></i></div>
+                <h4>Impact</h4>
+                <p>Creating meaningful, measurable positive change in the lives of people and communities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <h2>Our Services</h2>
+        <p class="section-description">Comprehensive solutions designed to maximize agricultural potential and create sustainable value across the entire supply chain.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="ri-plant-line"></i></div>
+                <!-- <div class="service-icon">🌾</div> -->
+                <h3>Agricultural Commodity Supply</h3>
+                <p>Direct sourcing, quality assurance, and export of premium agricultural commodities including grains, crops, and specialty products to global markets.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="ri-building-3-line"></i></div>
+                <!-- <div class="service-icon">🏭</div> -->
+                <h3>Farms-to-Factory Solutions</h3>
+                <p>Value addition through modern processing facilities, transforming raw agricultural materials into finished products with enhanced market value.</p>
+            </div>
+            <div class="service-card">
+                <!-- <div class="service-icon">🏡</div> -->
+                <div class="service-icon"><i class="ri-building-line"></i></div>
+                <h3>Real Estate Investment</h3>
+                <p>Sustainable development projects including agricultural estates, industrial parks, and community infrastructure for long-term value appreciation.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="ri-global-line"></i></div>
+                <h3>Export & Trade Facilitation</h3>
+                <p>End-to-end logistics, certification, compliance management, and market access support for seamless international trade operations.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="ri-funds-line" style="font-weight: lighter;color: green;"></i></div>
+                <h3>Investment Opportunities</h3>
+                <p>Carefully vetted investment vehicles offering attractive returns through agricultural production, processing, and distribution ventures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS & PARTNERS SECTION -->
+    <section class="partners">
+        <h2>Our Clients & Partners</h2>
+        <p class="section-description">We collaborate with leading organizations across agriculture, industry, government, and development sectors to create sustainable impact.</p>
+        <div class="partners-grid">
+            <div class="partner-logo">Partner Logo 1</div>
+            <div class="partner-logo">Partner Logo 2</div>
+            <div class="partner-logo">Partner Logo 3</div>
+            <div class="partner-logo">Partner Logo 4</div>
+            <div class="partner-logo">Partner Logo 5</div>
+            <div class="partner-logo">Partner Logo 6</div>
+            <div class="partner-logo">Partner Logo 7</div>
+            <div class="partner-logo">Partner Logo 8</div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY IMPACT SECTION -->
+    <section class="impact" id="impact">
+        <h2>Our Community Impact</h2>
+        <p class="section-description">Beyond business, we are committed to creating positive social impact through strategic community development initiatives.</p>
+        <div class="impact-cards">
+            <div class="impact-card">
+                <div class="impact-card-icon"><i class='bx bxs-like bx-flashing'></i></div>
+                <h3>Health & Social Support</h3>
+                <p>Providing medical services, health awareness programs, and social support initiatives to rural communities and farming families, improving quality of life and well-being.</p>
+            </div>
+            <div class="impact-card">
+                <div class="impact-card-icon">🚦</div>
+                <h3>Road Safety Awareness</h3>
+                <p>Partnering with FRSC and community organizations to promote road safety awareness, reduce accidents, and save lives through education and community engagement.</p>
+            </div>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-slide active">
+                    <div class="carousel-slide-placeholder"><img src="assets/arlington-research-BQTBlCxmPJM-unsplash.jpg" alt="" srcset=""></div>
+                    <div class="carousel-caption">Community Health Program</div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-slide-placeholder"><img src="assets/copernico-p_kICQCOM4s-unsplash.jpg" alt="" srcset=""></div>
+                    <div class="carousel-caption">Road Safety Campaign</div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-slide-placeholder"><img src="assets/damir-kopezhanov-VM1Voswbs0A-unsplash.jpg" alt="" srcset=""></div>
+                    <div class="carousel-caption">Agricultural Training</div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-slide-placeholder"><img src="assets/david-fintz.jpg" alt="" srcset=""></div>
+                    <div class="carousel-caption">Community Development</div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="carousel-slide-placeholder"><img src="assets/desola-lanre-ologun-IgUR1iX0mqM-unsplash (1).jpg" alt="" srcset=""></div>
+                    <div class="carousel-caption">Education Initiative</div>
+                </div>
+                <button class="carousel-nav carousel-prev" onclick="prevSlide()"><i class="ri-arrow-left-s-line"></i></button>
+                <button class="carousel-nav carousel-next" onclick="nextSlide()"><i class="ri-arrow-right-s-line"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AWARDS & RECOGNITIONS SECTION -->
+    <section class="awards" id="awards">
+        <h2>Awards & Recognitions</h2>
+        <p class="section-description">Recognized for our excellence, innovation, and commitment to positive impact in the agribusiness sector.</p>
+        <div class="awards-grid">
+            <div class="award-card">
+                <div class="award-icon"><i class="ri-trophy-line"></i></div>
+                <!-- <div class="award-icon">🏆</div> -->
+                <div class="award-year">2023</div>
+                <h3>Agribusiness Integration Award</h3>
+                <p>Recognition for outstanding achievement in integrating agricultural production with industrial processing and market development.</p>
+            </div>
+            <div class="award-card">
+                <div class="award-icon"><i class="ri-award-line"></i></div>
+                <div class="award-year">2024</div>
+                <h3>Community Impact Award</h3>
+                <p>Honored for significant contributions to community development, health initiatives, and social welfare programs in rural areas.</p>
+            </div>
+            <div class="award-card">
+                <div class="award-icon"><i class="ri-trophy-line"></i></div>
+                <div class="award-year">2024</div>
+                <h3>Emerging Brand of the Year</h3>
+                <p>Recognized as a leading emerging brand driving innovation and transformation in the African agribusiness sector.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INVESTOR PITCH DECK SECTION -->
+    <section class="investor" id="investors">
+        <h2>Investment Opportunities</h2>
+        <div class="investor-content">
+            <p class="investor-description">
+                AR-RAZAQ Global Investment Limited offers compelling investment opportunities with proven track records, transparent operations, and attractive returns. Our integrated agribusiness model combines agricultural production, industrial processing, and market access to create sustainable value for investors.
+            </p>
+            <button class="btn btn-gold" onclick="openInvestorModal()">Request Investor Deck</button>
+        </div>
+    </section>
+
+    <!-- INVESTOR MODAL -->
+    <div class="modal-overlay" id="investorModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeInvestorModal()">&times;</button>
+            <h2>Request Investor Deck</h2>
+            <form id="investorForm" onsubmit="handleInvestorSubmit(event)">
+                <div class="form-group">
+                    <label for="investorName">Full Name</label>
+                    <input type="text" id="investorName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="investorEmail">Email</label>
+                    <input type="email" id="investorEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="investorType">Investor Type</label>
+                    <select id="investorType" name="investorType" required>
+                        <option value="">Select Type</option>
+                        <option value="Individual">Individual</option>
+                        <option value="Corporate">Corporate</option>
+                        <option value="Institutional">Institutional</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="investorMessage">Message</label>
+                    <textarea id="investorMessage" name="message" placeholder="Tell us about your investment interests..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- WHY CHOOSE US SECTION -->
+    <section class="why-choose">
+        <h2>Why Choose AR-RAZAQ?</h2>
+        <p class="section-description">Discover the reasons why leading investors and partners trust us for their agribusiness and industrial investment needs.</p>
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="ri-checkbox-circle-line"></i></div>
+                <div class="benefit-content">
+                    <h3>Proven Track Record</h3>
+                    <p>Over 15 years of consistent performance, successful project delivery, and satisfied stakeholders across multiple African countries with demonstrated ROI.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="ri-checkbox-circle-line"></i></div>
+                <div class="benefit-content">
+                    <h3>Transparency & Accountability</h3>
+                    <p>Full transparency in operations, regular reporting, independent audits, and clear governance structures ensuring investor confidence and trust.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="ri-checkbox-circle-line"></i></div>
+                <div class="benefit-content">
+                    <h3>End-to-End Integration</h3>
+                    <p>Vertically integrated operations spanning production, processing, and distribution, ensuring quality control, cost efficiency, and market competitiveness.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="ri-checkbox-circle-line"></i></div>
+                <div class="benefit-content">
+                    <h3>Experienced Leadership</h3>
+                    <p>Led by seasoned professionals with deep expertise in agribusiness, finance, operations, and international trade with proven success records.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="ri-checkbox-circle-line"></i></div>
+                <div class="benefit-content">
+                    <h3>Sustainability Focus</h3>
+                    <p>Committed to environmental stewardship, social responsibility, and sustainable practices that create long-term value for all stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-item">
+                    <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
+                    <div class="contact-item-content">
+                        <h4>Address</h4>
+                        <p>Lagos, Nigeria</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
+                    <div class="contact-item-content">
+                        <h4>Phone</h4>
+                        <p><a href="tel:+234">+234 XXX XXX XXXX</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon"><i class="ri-mail-line"></i></div>
+                    <div class="contact-item-content">
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@arrazaqglobal.com">info@arrazaqglobal.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon"><i class="ri-global-line"></i></div>
+                    <div class="contact-item-content">
+                        <h4>Website</h4>
+                        <p><a href="#">www.arrazaqglobal.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-social">
+                    <a href="#" title="Facebook"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" title="Instagram"><i class="ri-instagram-fill"></i></a>
+                    <a href="#" title="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                </div>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <span><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.1301497480317!2d3.5792209740457883!3d6.505204423377673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bfbdf0f160233%3A0xe28f44f256818ef!2sAl-Razzaq%20Multi%20service%20Global%20company!5e0!3m2!1sen!2sng!4v1763163365169!5m2!1sen!2sng" width="400" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></span>
+                        <!-- <span>Map Integration Ready</span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="contactName">Name</label>
+                        <input type="text" id="contactName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AR-RAZZAQ Global</h4>
+                    <p>Building prosperity and empowering communities through innovative agribusiness solutions. From farms to factories, we create sustainable value.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#investors">Investors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="footer-social">
+                        <a href="#" title="Facebook"><i class="ri-facebook-fill"></i></a>
+                        <a href="#" title="Instagram"><i class="ri-instagram-fill"></i></a>
+                        <a href="#" title="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="yr"></span> AR-RAZZAQ Global Investment Limited. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP WIDGET -->
+    <div class="whatsapp-widget">
+        <button class="whatsapp-btn" onclick="openWhatsApp()" title="Chat with us on WhatsApp">
+            <i class="ri-whatsapp-line"></i>
+        </button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
