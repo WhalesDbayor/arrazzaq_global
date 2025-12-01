@@ -46,7 +46,7 @@ header.scrolled {
 }
 
 .header-container {
-    max-width: 1920px;
+    max-width: 100svw;
     margin: 0 auto;
     padding: 1rem 2rem;
     display: flex;
@@ -110,6 +110,7 @@ nav a:hover::after {
     color: var(--primary-green);
     font-size: 1.3rem;
     transition: var(--transition);
+    text-decoration: none;
 }
 
 .social-icons a:hover {
@@ -377,7 +378,7 @@ nav a:hover::after {
 /* SECTIONS */
 section {
     padding: 4rem 2rem;
-    max-width: 1920px;
+    max-width: 100svw;
     margin: 0 auto;
 }
 
