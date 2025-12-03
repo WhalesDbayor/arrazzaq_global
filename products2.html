@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .products-carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.product-info {
+  max-width: 400px;
+  padding: 25px;
+  border-radius: 16px;
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  animation: fadeUp 1s ease-in-out forwards;
+}
+
+.product-info h2 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.product-info p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.product-info.left {
+  margin-left: 8%;
+}
+
+.product-info.right {
+  margin-left: auto;
+  margin-right: 8%;
+}
+
+/* Navigation Buttons */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.carousel-button:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* Fade Up Animation */
+@keyframes fadeUp {
+  from { transform: translateY(25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .product-info {
+    max-width: 90%;
+    margin: auto;
+    text-align: center;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+  </style>
+</head>
+<body>
+  <section class="products-carousel" id="productsCarousel">
+  <div class="carousel-slide active" style="background-image:url('assets/products/pawpaw.jpg')">
+    <div class="product-info left">
+      <h2>Pawpaw</h2>
+      <p>Fresh organic pawpaw rich in vitamins A & C — grown with zero chemicals.</p>
+    </div>
+  </div>
+
+  <div class="carousel-slide" style="background-image:url('assets/products/orange.jpg')">
+    <div class="product-info right">
+      <h2>Pineapple</h2>
+      <p>Sweet and juicy pineapples packed with natural antioxidants and enzymes.</p>
+    </div>
+  </div>
+
+  <div class="carousel-slide" style="background-image:url('assets/products/pineapple.jpg')">
+    <div class="product-info left">
+      <h2>Strawberry</h2>
+      <p>Delicious red strawberries cultivated under optimal climate conditions.</p>
+    </div>
+  </div>
+
+  <div class="carousel-button prev">&#10094;</div>
+  <div class="carousel-button next">&#10095;</div>
+</section>
+
+<script>
+  let slides = document.querySelectorAll(".carousel-slide");
+let index = 0;
+let interval = setInterval(nextSlide, 6000);
+
+function showSlide(i) {
+  slides.forEach((slide, idx) => {
+    slide.classList.toggle("active", idx === i);
+  });
+}
+
+function nextSlide() {
+  index = (index + 1) % slides.length;
+  showSlide(index);
+}
+
+function prevSlide() {
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+}
+
+// Manual Controls
+document.querySelector(".next").onclick = () => {
+  nextSlide();
+  resetAuto();
+};
+document.querySelector(".prev").onclick = () => {
+  prevSlide();
+  resetAuto();
+};
+
+// Reset timer when manually navigating
+function resetAuto() {
+  clearInterval(interval);
+  interval = setInterval(nextSlide, 6000);
+}
+
+</script>
+
+</body>
+</html>
