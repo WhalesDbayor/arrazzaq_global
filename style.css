@@ -40,7 +40,7 @@ header {
     transition: var(--transition);
     width: 100svw;
     backdrop-filter: blur(18px);
-    background: rgba(243, 240, 240, 0.671);
+    background: rgba(243, 240, 240, 0.792);
 }
 
 header.scrolled {
@@ -535,6 +535,23 @@ section h2 {
     font-size: 1.3rem;
 }
 
+.service-card a {
+    border: 1px solid var(--primary-green);
+    padding: 0.4rem 1.2rem;
+    color: var(--primary-green);
+    border-radius: 1rem;
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: bolder;
+    /* font-family: verdana; */
+}
+
+.service-card a:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
 .service-card p {
     color: #666;
     font-size: 0.95rem;
@@ -615,7 +632,7 @@ section h2 {
     align-items: center;
     padding: 0 2rem;
     text-align: center;
-    transform: translateY(70%);
+    transform: translateY(65%);
     transition: 0.5s ease;
 }
 
