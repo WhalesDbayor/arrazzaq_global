@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +18,7 @@
 </head>
 <body>
     <!-- HEADER -->
+     <!-- : In this current project, change the entire color scheme to have a perfect blend of agric green, golden yellow and red.  -->
     <header>
         <div class="header-container">
             <a href="#" class="logo" style="display: flex;align-items: center;column-gap: 10px;"><img src="assets/arrazzaqlogo.png" alt="" height="40"> AR-RAZZAQ INVESTMENT LIMITED</a>
@@ -445,69 +445,74 @@
     <!-- CONTACT SECTION -->
     <section class="contact" id="contact">
         <h2>Get In Touch</h2>
+        <p class="section-description">Reach out for partnerships, investments, or general inquiries. Our team is ready to support your agribusiness needs.</p>
         <div class="contact-container">
-            <div class="contact-info">
-                <h3>Contact Information</h3>
+            <div class="contact-info" aria-labelledby="contact-info-heading">
+                <h3 id="contact-info-heading">Contact Information</h3>
                 <div class="contact-item">
-                    <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
+                    <div class="contact-item-icon" title="Addresses"><i class="ri-map-pin-line"></i></div>
                     <div class="contact-item-content">
                         <h4>Addresses</h4>
-                        <p>Lagos State Address: 62 Kudirat Abiola Way, Oregun, Ikeja, Lagos, Nigeria</p>
-                        <p>Ekiti State Address: 10 Surulere, Omuooke, Ekiti, Nigeria</p>
+                        <p>Lagos: 62 Kudirat Abiola Way, Oregun, Ikeja</p>
+                        <p>Ekiti: 10 Surulere, Omuooke</p>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
+                    <div class="contact-item-icon" title="Phone"><i class="ri-phone-line"></i></div>
                     <div class="contact-item-content">
                         <h4>Phone</h4>
                         <p><a href="tel:+23461614705">+234 616 147 05</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-item-icon"><i class="ri-mail-line"></i></div>
+                    <div class="contact-item-icon" title="Email"><i class="ri-mail-line"></i></div>
                     <div class="contact-item-content">
-                        <h4>Email Addresses</h4>
-                        <p><a href="mailto:info@ar-razaqglobal.com">info@ar-razzaqglobal.com</a></p>
-                        <p><a href="mailto:customercare@ar-razzaqglobal.com">customercare@ar-razzaqglobal.com</a></p>
-                        <p><a href="mailto:miseolakunmi@ar-razzaqglobal.com">miseolakunmi@ar-razzaqglobal.com</a></p>
-                        <p><a href="mailto:rasaq.mohamoned@ar-razzaqglobal.com">rasaq.mohamoned@ar-razzaqglobal.com</a></p>
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@ar-razzaqglobal.com">info@ar-razzaqglobal.com</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-item-icon"><i class="ri-global-line"></i></div>
+                    <div class="contact-item-icon" title="Website"><i class="ri-global-line"></i></div>
                     <div class="contact-item-content">
                         <h4>Website</h4>
-                        <p><a href="https://www.ar-razzaqglobal.com/">https://www.ar-razzaqglobal.com/</a></p>
+                        <p><a href="https://www.ar-razzaqglobal.com/">ar-razzaqglobal.com</a></p>
                     </div>
                 </div>
-                <div class="contact-social">
+
+                <div class="contact-social" aria-label="Social links">
                     <a href="https://facebook.com/ar-razzaqglobal" title="Facebook" target="_blank"><i class="ri-facebook-fill"></i></a>
                     <a href="https://instagram.com/arrazzaqglobal" title="Instagram" target="_blank"><i class="ri-instagram-fill"></i></a>
                     <a href="https://linkedin.com/company/ar-razzaqglobalinvestmentlimited" title="LinkedIn" target="_blank"><i class="ri-linkedin-fill"></i></a>
                 </div>
-                <!-- <div class="map-container">
+
+                <div class="map-container" aria-hidden="false">
                     <div class="map-placeholder">
                         <span><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.1301497480317!2d3.5792209740457883!3d6.505204423377673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bfbdf0f160233%3A0xe28f44f256818ef!2sAl-Razzaq%20Multi%20service%20Global%20company!5e0!3m2!1sen!2sng!4v1763163365169!5m2!1sen!2sng" width="400" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></span>
                     </div>
-                </div> -->
+                </div>
             </div>
 
-            <div class="contact-form">
-                <h3>Send Us a Message</h3>
-                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+            <div class="contact-form" aria-labelledby="contact-form-heading">
+                <h3 id="contact-form-heading">Send Us a Message</h3>
+                <form id="contactForm" onsubmit="handleContactSubmit(event)" novalidate>
                     <div class="form-group">
                         <label for="contactName">Name</label>
-                        <input type="text" id="contactName" name="name" required>
+                        <input type="text" id="contactName" name="name" required placeholder="Your full name">
                     </div>
                     <div class="form-group">
                         <label for="contactEmail">Email</label>
-                        <input type="email" id="contactEmail" name="email" required>
+                        <input type="email" id="contactEmail" name="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" name="subject" placeholder="Brief subject (optional)">
                     </div>
                     <div class="form-group">
                         <label for="contactMessage">Message</label>
-                        <textarea id="contactMessage" name="message" required></textarea>
+                        <textarea id="contactMessage" name="message" required placeholder="How can we help?"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    <button type="submit" class="btn">Send Message</button>
+                    <p class="contact-note">We aim to reply within 48 hours. For urgent enquiries call the number above.</p>
                 </form>
             </div>
         </div>
