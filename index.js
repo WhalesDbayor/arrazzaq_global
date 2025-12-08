@@ -185,7 +185,7 @@ function handleContactSubmit(e) {
 
 // ===== WHATSAPP WIDGET =====
 function openWhatsApp() {
-    const phoneNumber = '234XXXXXXXXXX';
+    const phoneNumber = '+2347061614705';
     const message = encodeURIComponent('Hello AR-RAZZAQ Global Investment Limited, I would like to learn more about your services.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
