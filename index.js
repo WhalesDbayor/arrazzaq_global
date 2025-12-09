@@ -76,18 +76,54 @@ document.querySelectorAll('.card, .service-card, .award-card, .partner-logo, .va
 // ===== POPUP MODAL =====
 const popupModal = document.getElementById('popupModal');
 let popupShown = false;
+let popupAutoCloseTimer = null;
+let popupUserInteracting = false;
+let popupInputListeners = []; // store {el, handler} so we can remove listeners later
+
+function clearPopupInputListeners() {
+    popupInputListeners.forEach(item => {
+        try { item.el.removeEventListener('input', item.handler); } catch(e) {}
+        try { item.el.removeEventListener('focus', item.handler); } catch(e) {}
+    });
+    popupInputListeners = [];
+}
 
 function showPopupModal() {
     if (!localStorage.getItem('popupShown')) {
         setTimeout(() => {
             popupModal.classList.add('active');
             popupShown = true;
-            
-            // Auto-close after 10 seconds
-            setTimeout(() => {
-                if (popupShown) {
+
+            // find inputs inside modal
+            const inputs = popupModal.querySelectorAll('input, textarea, select');
+            popupUserInteracting = false;
+
+            // handler to mark that user started interacting and cancel auto-close
+            const onInteract = () => {
+                popupUserInteracting = true;
+                if (popupAutoCloseTimer) {
+                    clearTimeout(popupAutoCloseTimer);
+                    popupAutoCloseTimer = null;
+                }
+                // remove listeners once user begins interacting
+                clearPopupInputListeners();
+            };
+
+            // attach listeners and keep references so we can remove them later if needed
+            inputs.forEach(el => {
+                el.addEventListener('input', onInteract);
+                el.addEventListener('focus', onInteract);
+                popupInputListeners.push({ el, handler: onInteract });
+            });
+
+            // set auto-close timer: only close if user did NOT start interacting within 10s
+            popupAutoCloseTimer = setTimeout(() => {
+                if (!popupUserInteracting) {
                     closePopupModal();
                 }
+                // cleanup listeners/timer after decision
+                if (popupAutoCloseTimer) { clearTimeout(popupAutoCloseTimer); popupAutoCloseTimer = null; }
+                clearPopupInputListeners();
             }, 10000);
         }, 3000);
     }
@@ -96,17 +132,23 @@ function showPopupModal() {
 function closePopupModal() {
     popupModal.classList.remove('active');
     popupShown = false;
+    if (popupAutoCloseTimer) {
+        clearTimeout(popupAutoCloseTimer);
+        popupAutoCloseTimer = null;
+    }
+    clearPopupInputListeners();
 }
 
 function handlePopupSubmit(e) {
     e.preventDefault();
-    document.getElementById('popupForm').style.display = 'none';
-    document.getElementById('popupSuccess').classList.add('active');
+    // mark shown so it won't reappear
     localStorage.setItem('popupShown', 'true');
-    
-    setTimeout(() => {
-        closePopupModal();
-    }, 3000);
+
+    // Immediately close modal when the user submits
+    closePopupModal();
+
+    // optional: show a quick thank-you (use alert to keep simple)
+    alert('Thank you! We have received your information.');
 }
 
 // Show popup on page load
@@ -128,7 +170,8 @@ function openInvestorModal() {
 
 function closeInvestorModal() {
     investorModal.classList.remove('active');
-    document.getElementById('investorForm').reset();
+    const form = document.getElementById('investorForm');
+    if (form) form.reset();
 }
 
 function handleInvestorSubmit(e) {
@@ -150,7 +193,7 @@ let autoPlayInterval;
 
 function showSlide(n) {
     slides.forEach(slide => slide.classList.remove('active'));
-    slides[n].classList.add('active');
+    if (slides[n]) slides[n].classList.add('active');
 }
 
 function nextSlide() {
@@ -180,7 +223,8 @@ startAutoPlay();
 function handleContactSubmit(e) {
     e.preventDefault();
     alert('Thank you for your message! We will get back to you soon.');
-    document.getElementById('contactForm').reset();
+    const form = document.getElementById('contactForm');
+    if (form) form.reset();
 }
 
 // ===== WHATSAPP WIDGET =====
