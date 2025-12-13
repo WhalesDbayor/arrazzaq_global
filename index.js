@@ -73,6 +73,12 @@ document.querySelectorAll('.card, .service-card, .award-card, .partner-logo, .va
     scrollObserver.observe(el);
 });
 
+// ===== INFINITE SCROLLING GALLERY =====
+const track = document.querySelector(".gallery-track");
+
+// Duplicate content once for infinite effect
+track.innerHTML += track.innerHTML;
+
 // ===== POPUP MODAL =====
 const popupModal = document.getElementById('popupModal');
 let popupShown = false;

@@ -188,7 +188,7 @@ nav a:hover::after {
     color: var(--white);
     padding: 6rem 2rem;
     text-align: center;
-    /* position: relative; */
+    position: relative;
     overflow: hidden;
     width: 100%;
 }
@@ -200,6 +200,8 @@ nav a:hover::after {
     left: 0;
     right: 0;
     bottom: 0;
+    background-color: #2f7a2f88;
+    backdrop-filter: blur(10px);
     /* background-image: 
         repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.03) 35px, rgba(255, 255, 255, 0.03) 70px),
         repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.03) 35px, rgba(255, 255, 255, 0.03) 70px); */
@@ -580,8 +582,26 @@ section h2 {
   background: url('assets/arrazzaq_pictures/corn-plantation.jpg') no-repeat center center/cover;
 }
 
-.product-gallery h2, .product-gallery p {
-    z-index: 2;
+.products-description {
+    /* z-index: 22; */
+    padding-top: 55px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.products-description h2 {
+    color: var(--gold);
+}
+
+.products-description p {
+    color: white;
 }
 
 .product-gallery::before {
