@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ar-razzaq Product Gallery (Endless Scroll Carousel)</title>
+
+    <!-- Tailwind CDN + custom config (config must run BEFORE loading the CDN) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'agri-green': '#047857',
+                        'agri-gold': '#d97706',
+                        'agri-light': '#f0fdf4',
+                        'agri-dark': '#1f2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* --- 1. Endless Scroll Animation Keyframes --- */
+
+        /* Define the continuous scroll movement from right to left */
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%); /* Scrolls exactly the width of the original content set */
+            }
+        }
+
+        /* Base track styles (desktop default speed) */
+        .carousel-track {
+            /* Duplicates the content and makes it run infinitely */
+            animation: scroll-left 60s linear infinite; /* 60 seconds duration for subtle speed */
+        }
+
+        /* Pause animation on hover for desktop interaction */
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Responsive speed adjustment (slower for mobile to compensate for shorter viewport) */
+        @media (max-width: 768px) {
+            .carousel-track {
+                animation-duration: 90s; /* Slower scroll on smaller screens */
+            }
+        }
+
+        /* --- 2. Product Card & Hover Overlay Styling --- */
+
+        .product-card {
+            /* Fixed height for uniformity */
+            height: 320px;
+            /* Required for absolute positioning of image and overlay */
+            position: relative;
+            /* Flexing allows the image placeholder to control the card's width naturally */
+            display: flex;
+            /* Ensures continuous flow in the track */
+            flex-shrink: 0;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle lift effect */
+        }
+
+        .product-image {
+            width: auto;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease-in-out;
+        }
+        
+        /* The container for the product name text at the bottom */
+        .product-name-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 1rem;
+            background-color: rgba(31, 41, 55, 0.75); /* Dark semi-transparent background */
+            color: white;
+            z-index: 10;
+        }
+
+        /* Overlay covering the entire card for description */
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            /* Initial state: translated down and hidden */
+            transform: translateY(100%); 
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+
+            /* Semi-transparent/frosted background effect */
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px); /* Note: Not universally supported, but good practice for effect */
+        }
+
+        /* Final state on hover/tap: move up and become visible */
+        .product-card:hover .product-overlay,
+        .product-card.active-tap .product-overlay { /* .active-tap added via JS for mobile fallback */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+
+<body class="font-sans bg-agri-light text-agri-dark">
+
+    <main class="min-h-screen">
+        <!-- Section Header -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h3 class="text-lg font-semibold uppercase tracking-wider text-agri-gold">Our Products</h3>
+            <h2 class="text-5xl font-extrabold mt-2 text-agri-dark">Ar-razzaq Product Gallery</h2>
+            <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Sustainably sourced, expertly processed, and ready for export across the globe.</p>
+        </section>
+
+        <!-- Product Gallery Section -->
+        <section id="product-gallery" class="overflow-hidden py-10 bg-white shadow-inner">
+            <div class="whitespace-nowrap flex" id="carousel-container">
+                <!-- 
+                    The track contains two identical sets of product cards. 
+                    Set 1 (Original) + Set 2 (Duplicate) = seamless loop.
+                    The total width of the content will be scrolled by 50% (100% of the original set).
+                -->
+                <div class="carousel-track flex" id="product-track-1">
+                    <!-- Product Card Set 1 (Original) -->
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="1">
+                        <img src="https://placehold.co/400x533/047857/ffffff?text=Premium+Dates" alt="Dates" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Premium Dates</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Premium Dates</h4>
+                            <p class="text-lg text-agri-dark">Harvested from the finest date palm varieties, known for their rich, caramel flavour and high nutritional value. Excellent for export.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="2">
+                        <img src="https://placehold.co/400x400/047857/ffffff?text=Sesame+Seeds" alt="Sesame Seeds" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Sesame Seeds (Hulled)</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Sesame Seeds (Hulled)</h4>
+                            <p class="text-lg text-agri-dark">High-grade, oil-rich sesame seeds, meticulously cleaned and hulled. Used widely in confectioneries and healthy oils.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="3">
+                        <img src="https://placehold.co/533x400/047857/ffffff?text=Nigerian+Ginger" alt="Ginger" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Nigerian Ginger</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Nigerian Ginger</h4>
+                            <p class="text-lg text-agri-dark">Renowned for its strong aroma and pungent flavour. Available in dried, sliced, or powdered form for culinary and medicinal uses.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="4">
+                        <img src="https://placehold.co/400x400/047857/ffffff?text=Dried+Hibiscus" alt="Hibiscus" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Dried Hibiscus Flower</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Dried Hibiscus Flower</h4>
+                            <p class="text-lg text-agri-dark">Used for natural colourants and popular health drinks. Carefully dried to preserve colour and tartness.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="5">
+                        <img src="https://placehold.co/400x533/047857/ffffff?text=Raw+Cashew+Nuts" alt="Cashew Nuts" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Raw Cashew Nuts</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Raw Cashew Nuts</h4>
+                            <p class="text-lg text-agri-dark">Sustainably sourced raw cashews, ready for processing into kernels or snack foods. Grade A quality.</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="6">
+                        <img src="https://placehold.co/533x400/047857/ffffff?text=Sorghum+Grains" alt="Sorghum" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Sorghum Grains</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Sorghum Grains</h4>
+                            <p class="text-lg text-agri-dark">Versatile cereal grain used for brewing, flour, and livestock feed. Gluten-free and highly nutritious.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="7">
+                        <img src="https://placehold.co/400x400/047857/ffffff?text=Cocoa+Beans" alt="Cocoa Beans" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Fermented Cocoa Beans</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Fermented Cocoa Beans</h4>
+                            <p class="text-lg text-agri-dark">Fully fermented, dried cocoa beans essential for high-quality chocolate production. Rich in flavour precursors.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="8">
+                        <img src="https://placehold.co/400x533/047857/ffffff?text=Pearl+Millet" alt="Millet" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Pearl Millet (Pennisetum)</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Pearl Millet (Pennisetum)</h4>
+                            <p class="text-lg text-agri-dark">Drought-resistant crop, a staple food source, and excellent livestock feed. High in protein and iron.</p>
+                        </div>
+                    </div>
+
+                    <!-- End of Product Card Set 1 -->
+                </div>
+
+                <!-- Product Card Set 2 (Duplicate for Seamless Scroll) -->
+                <!-- IMPORTANT: This block must be identical to Set 1 -->
+                <div class="carousel-track flex" id="product-track-2">
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="1">
+                        <img src="https://placehold.co/400x533/047857/ffffff?text=Premium+Dates" alt="Dates" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Premium Dates</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Premium Dates</h4>
+                            <p class="text-lg text-agri-dark">Harvested from the finest date palm varieties, known for their rich, caramel flavour and high nutritional value. Excellent for export.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="2">
+                        <img src="https://placehold.co/400x400/047857/ffffff?text=Sesame+Seeds" alt="Sesame Seeds" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Sesame Seeds (Hulled)</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Sesame Seeds (Hulled)</h4>
+                            <p class="text-lg text-agri-dark">High-grade, oil-rich sesame seeds, meticulously cleaned and hulled. Used widely in confectioneries and healthy oils.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="3">
+                        <img src="https://placehold.co/533x400/047857/ffffff?text=Nigerian+Ginger" alt="Ginger" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Nigerian Ginger</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Nigerian Ginger</h4>
+                            <p class="text-lg text-agri-dark">Renowned for its strong aroma and pungent flavour. Available in dried, sliced, or powdered form for culinary and medicinal uses.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="4">
+                        <img src="https://placehold.co/400x400/047857/ffffff?text=Dried+Hibiscus" alt="Hibiscus" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Dried Hibiscus Flower</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Dried Hibiscus Flower</h4>
+                            <p class="text-lg text-agri-dark">Used for natural colourants and popular health drinks. Carefully dried to preserve colour and tartness.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="5">
+                        <img src="https://placehold.co/400x533/047857/ffffff?text=Raw+Cashew+Nuts" alt="Cashew Nuts" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Raw Cashew Nuts</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Raw Cashew Nuts</h4>
+                            <p class="text-lg text-agri-dark">Sustainably sourced raw cashews, ready for processing into kernels or snack foods. Grade A quality.</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="6">
+                        <img src="https://placehold.co/533x400/047857/ffffff?text=Sorghum+Grains" alt="Sorghum" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Sorghum Grains</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Sorghum Grains</h4>
+                            <p class="text-lg text-agri-dark">Versatile cereal grain used for brewing, flour, and livestock feed. Gluten-free and highly nutritious.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="7">
+                        <img src="https://placehold.co/400x400/047857/ffffff?text=Cocoa+Beans" alt="Cocoa Beans" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Fermented Cocoa Beans</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Fermented Cocoa Beans</h4>
+                            <p class="text-lg text-agri-dark">Fully fermented, dried cocoa beans essential for high-quality chocolate production. Rich in flavour precursors.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card m-4 rounded-xl shadow-lg border border-gray-100" data-product-id="8">
+                        <img src="https://placehold.co/400x533/047857/ffffff?text=Pearl+Millet" alt="Millet" class="product-image">
+                        <div class="product-name-strip rounded-b-xl">
+                            <h4 class="text-xl font-bold tracking-tight">Pearl Millet (Pennisetum)</h4>
+                        </div>
+                        <div class="product-overlay rounded-xl">
+                            <h4 class="text-2xl font-bold text-agri-green mb-3">Pearl Millet (Pennisetum)</h4>
+                            <p class="text-lg text-agri-dark">Drought-resistant crop, a staple food source, and excellent livestock feed. High in protein and iron.</p>
+                        </div>
+                    </div>
+                    <!-- End of Product Card Set 2 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Placeholder for next section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <div class="h-32 bg-gray-200 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-400">
+                <p class="text-gray-500">Next Section Placeholder (e.g., Contact or Story)</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Simple JavaScript for Mobile Hover/Tap -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product-card');
+
+            // Check if the device is likely touch-enabled (not perfect, but covers most cases)
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
+
+            if (isTouchDevice) {
+                productCards.forEach(card => {
+                    // Prevent default touch behavior that might interfere with scrolling/tapping
+                    card.addEventListener('touchend', (e) => {
+                        e.preventDefault(); 
+                        
+                        // If it already has the class, remove it (tap again to close/navigate away)
+                        if (card.classList.contains('active-tap')) {
+                            card.classList.remove('active-tap');
+                        } else {
+                            // Close any other open card
+                            productCards.forEach(c => c.classList.remove('active-tap'));
+                            // Open the current card
+                            card.classList.add('active-tap');
+                        }
+                    });
+
+                    // Add transition delay for touch devices to feel more instant
+                    const overlay = card.querySelector('.product-overlay');
+                    if (overlay) {
+                        overlay.style.transitionDuration = '0.3s';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
