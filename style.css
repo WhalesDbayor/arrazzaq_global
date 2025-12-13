@@ -608,7 +608,7 @@ section h2 {
   content: "AR-RAZZAQ";
   color: rgba(255, 255, 0, 0.596);
   text-shadow: 0 0 20px rgb(233, 232, 197), 0 0 40px rgb(245, 244, 217);
-  font-size: clamp(3.5rem, 9vw, 13rem);
+  font-size: clamp(4rem, 10vw, 13rem);
   position: absolute;
   top: 0;
   bottom: 0;
