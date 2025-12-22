@@ -226,12 +226,76 @@ function resetAutoPlay() {
 startAutoPlay();
 
 // ===== CONTACT FORM =====
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_tg7-q9OdwlZnUWLMY-ByejGilTz6asNlVck-yEYWpJ7ekpidpJwCE8jgLpiEZ1uN/exec";
+
 function handleContactSubmit(e) {
-    e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
-    const form = document.getElementById('contactForm');
-    if (form) form.reset();
+  e.preventDefault();
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn?.setAttribute("disabled", "true");
+
+  // Read values directly (guarantees we capture current inputs)
+  const name = (form.querySelector('[name="name"]')?.value || "").trim();
+  const email = (form.querySelector('[name="email"]')?.value || "").trim();
+  const subject = (form.querySelector('[name="subject"]')?.value || "").trim();
+  const message = (form.querySelector('[name="message"]')?.value || "").trim();
+
+  // Debug: show what will be sent
+  console.log("Contact form values:", { name, email, subject, message });
+
+  // If required fields are empty stop and warn (helps catch accidental clearing)
+  if (!name || !email || !message) {
+    console.warn("Required contact fields missing:", { name, email, message });
+    alert("Please fill in the required fields (Name, Email, Message).");
+    submitBtn?.removeAttribute("disabled");
+    return;
+  }
+
+  // Build form-encoded body that Apps Script expects
+  const fd = new FormData(form);
+  // Ensure FormData contains values (fallback to values we read above)
+  if (!fd.get("name")) fd.set("name", name);
+  if (!fd.get("email")) fd.set("email", email);
+  if (!fd.get("subject")) fd.set("subject", subject);
+  if (!fd.get("message")) fd.set("message", message);
+
+  const body = new URLSearchParams(fd);
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    headers: { "Accept": "application/json" }, // content-type not set; browser will set form-encoded automatically
+    body,
+    mode: "cors"
+  })
+    .then(async (res) => {
+      const text = await res.text();
+      try {
+        console.log("Form submit response:", JSON.parse(text));
+      } catch {
+        console.log("Form submit response (text):", text);
+      }
+      form.reset();
+      alert("Message sent. Thank you!");
+    })
+    .catch((err) => {
+      console.error("Contact form submit error:", err);
+      alert("Send failed. Check console for details.");
+    })
+    .finally(() => {
+      submitBtn?.removeAttribute("disabled");
+    });
 }
+
+// Remove the duplicated long inline submit handler and replace with a single attach
+document.addEventListener("DOMContentLoaded", () => {
+  const contactForm = document.getElementById("contactForm");
+  if (!contactForm) return;
+
+  // Attach the single, central handler
+  contactForm.addEventListener("submit", handleContactSubmit);
+});
 
 // ===== WHATSAPP WIDGET =====
 function openWhatsApp() {
@@ -241,25 +305,36 @@ function openWhatsApp() {
 }
 
 // ===== FORM VALIDATION =====
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', (e) => {
-        const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
-        let isValid = true;
+// document.querySelectorAll('form').forEach(form => {
+//     form.addEventListener('submit', (e) => {
+//         const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+//         let isValid = true;
         
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                isValid = false;
-                input.style.borderColor = '#ff6b6b';
-            } else {
-                input.style.borderColor = '#ddd';
-            }
-        });
+//         inputs.forEach(input => {
+//             if (!input.value.trim()) {
+//                 isValid = false;
+//                 input.style.borderColor = '#ff6b6b';
+//             } else {
+//                 input.style.borderColor = '#ddd';
+//             }
+//         });
         
-        if (!isValid) {
-            e.preventDefault();
-        }
-    });
-});
+//         if (!isValid) {
+//             e.preventDefault();
+//         }
+//     });
+// });
+
+// CONTACT FORM WITH GOOGLE SHEET API INTEGRATION
+// const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby40ud9a6otwOaxMOEYR_DXoYVo3U1hVj6kKgqcAoxz9EQSkJallGE8NkWj_HpLkzxr/exec";
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   const contactForm = document.getElementById("contactForm");
+//   if (!contactForm) return;
+
+//   // Attach the single, central handler
+//   contactForm.addEventListener("submit", handleContactSubmit);
+// });
 
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
